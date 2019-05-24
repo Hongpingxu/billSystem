@@ -311,6 +311,7 @@ class UserController extends Controller {
     const result = await this.app.mysql.select('user', {
       where: {username: username}
     })
+    console.log(result,'用户预算')
     this.ctx.body = result
   }
 
@@ -333,6 +334,7 @@ class UserController extends Controller {
     const username = body.username
     const year = body.year.toString()
     const month = body.month.toString()
+    console.log(username,year,month,'请求月预算的数据')
     const result = await this.app.mysql.select('bill', {
       where: {username:username}
     })
@@ -363,11 +365,11 @@ class UserController extends Controller {
         dest[i].sortTotal += parseFloat(dest[i].list[j].money)
       }
     }
-    // console.log(dest,'hahah')
+    console.log(dest,'请求到的数据')
     const monthSort = await this.app.mysql.select('sortbudget', {
       where: {username:username}
     })
-    console.log(monthSort,'lalala')
+    console.log(monthSort,'月预算数据')
     
     // let sortMap = []
     for (let i = 0, len = monthSort.length; i < len; i++) {
@@ -406,7 +408,7 @@ class UserController extends Controller {
     //     dest.splice(i, 1)
     //   }
     // }
-    console.log(dest,'hahah')
+    console.log(dest,'最终处理得到的数据')
     this.ctx.body = dest
   }
 
